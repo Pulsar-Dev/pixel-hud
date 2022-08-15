@@ -35,7 +35,7 @@ hook.Add("entity_killed", "PIXEL.HUD.NLRTimer", function(data)
     local textAlignCenter = TEXT_ALIGN_CENTER
 
     hook.Add("HUDPaint", "PIXEL.HUD.NLRTimer", function()
-        local titleX = PIXEL.Scale(localPly:IsInSpawn() and 160 or 80)
+        local titleX = PIXEL.Scale(80)
         local _, titleH = PIXEL.DrawSimpleText("NEW LIFE RULE", "HUD.NLRTitle", centerX, titleX, titleCol, textAlignCenter)
         PIXEL.DrawSimpleText("You must not return to your death location for another " .. math.Round(finishTime - CurTime()) .. " seconds.", "HUD.NLRDescription", centerX, titleX + titleH, descriptionCol, textAlignCenter)
     end)
