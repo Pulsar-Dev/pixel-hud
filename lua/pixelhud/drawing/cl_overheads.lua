@@ -29,22 +29,6 @@ function PIXEL.HUD.SetupOverheadDrawing()
             color = function(ply) return team.GetColor(ply:Team()) end,
             getter = function(ply) return team.GetName(ply:Team()) end
         },
-        { --Gang
-            imgurId = "sMh3imc",
-            color = colors.Gang,
-            getter = function(ply)
-                if ply:GetGangID() <= 0 then return "N/A" end
-
-                local gangInfo = BRS_PLYGANGINFO and BRS_PLYGANGINFO[ply:SteamID()] or false
-                if not (gangInfo and gangInfo.Name) then
-                    BRICKS_SERVER.Func.RequestPlyGangInfo(ply:SteamID())
-                    return "N/A"
-                end
-
-                return gangInfo.Name or "N/A"
-            end,
-            shouldShow = function(ply) return ply:HasGang() end
-        },
         { --Health
             imgurId = "TsGKspF",
             color = colors.Health,
@@ -69,6 +53,25 @@ function PIXEL.HUD.SetupOverheadDrawing()
             shouldShow = function(ply) return ply:getDarkRPVar("wanted") end
         }
     }
+
+    if BRICKS_SERVER and BRS_PLYGANGINFO then
+        table.insert(stats, { --Gang
+            imgurId = "sMh3imc",
+            color = colors.Gang,
+            getter = function(ply)
+                if ply:GetGangID() <= 0 then return "N/A" end
+
+                local gangInfo = BRS_PLYGANGINFO and BRS_PLYGANGINFO[ply:SteamID()] or false
+                if not (gangInfo and gangInfo.Name) then
+                    BRICKS_SERVER.Func.RequestPlyGangInfo(ply:SteamID())
+                    return "N/A"
+                end
+
+                return gangInfo.Name or "N/A"
+            end,
+            shouldShow = function(ply) return ply:HasGang() end
+        }, 3)
+    end
 
     PIXEL.RegisterFontUnscaled("HUD.OverheadText", "Open Sans SemiBold", 120)
 
