@@ -60,6 +60,13 @@ function PANEL:Init()
     moneyElem.CurValue = 0
     moneyElem.TargetValue = self.Player:getDarkRPVar("money")
 
+    if PulsarStore then
+        local moneyElem = self:AddElement("PRyOnDY", "pulsarcredits", nil, PIXEL.FormatMoney, true)
+        moneyElem:SetText("0"):SetIconColor(PIXEL.Colors.Positive)
+        moneyElem.CurValue = 0
+        moneyElem.TargetValue = self.Player.PulsarStoreCredits or 0
+    end
+
     PIXEL.FormatTime(time)
 
     if self.Player.GetUTimeTotalTime then

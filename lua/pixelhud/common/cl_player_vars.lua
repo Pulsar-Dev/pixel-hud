@@ -23,6 +23,10 @@ hook.Add("DarkRPVarChanged", "PIXEL.DarkRPVarChanged", function(ply, key, _, val
     hook.Run("PIXEL.HUD.UpdatePlayerVars", key, value)
 end)
 
+hook.Add("PulsarStore.ClientCreditsReceived", "PIXEL.PulsarStoreCreditsChanged", function(credits)
+    hook.Run("PIXEL.HUD.UpdatePlayerVars", "pulsarstore", credits)
+end)
+
 local currentVals = {}
 
 local function checkChanges(name, getter)
@@ -94,7 +98,7 @@ hook.Add("PIXEL.HUD.FinishedBuilding", "PIXEL.WaitToCheckStats", function()
         if localPly.GetUTimeTotalTime then
             checkChanges("time", localPly.GetUTimeTotalTime)
         end
-        
+
         checkWeaponStats()
     end)
 end)
